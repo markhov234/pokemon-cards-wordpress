@@ -15,9 +15,12 @@
 <body>
 
 <nav class="menu-principal-nav">
-    <span id="hamburger-icon"class="menu-principal">
-        MENU
-    </span>
+    <span class="menu-principal-logo">UNIK</span>
+<div class="menu-principal-btn" id="menu-btn">
+    <span class="menu-principal-btn-bar"></span>
+    <span class="menu-principal-btn-bar"></span>
+    <span class="menu-principal-btn-bar"></span>
+  </div>
     <?php
     wp_nav_menu(
         array(

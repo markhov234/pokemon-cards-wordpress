@@ -1,0 +1,49 @@
+.header_hero {
+  &-container {
+    margin: 0 25px;
+    padding-bottom: 50px;
+  }
+
+  &-intro {
+    &-title {
+      margin-top: 60px;
+      position: relative;
+      font-size: 36px;
+      z-index: 0;
+      text-align: center;
+      &::before {
+        content: "Unik-média";
+        position: absolute;
+        text-transform: capitalize;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+        font-size: 60px;
+        color: rgba(255, 255, 255, 0.15);
+      }
+    }
+  }
+  &-contact {
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    &-info {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      margin: 10px 0;
+      &-icon {
+        width: fit-content;
+        margin: auto;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #0e0d10;
+      }
+      & p {
+        margin: 10px auto 0;
+        width: 100%;
+      }
+    }
+  }
+}
