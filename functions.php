@@ -1,14 +1,21 @@
 <?php
 
+function allow_cors() {
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
+    header("Access-Control-Allow-Headers: Content-Type");
+}
+
+
 function enqueue_styles() {
     wp_enqueue_style('main-style', get_template_directory_uri() . '/dist/css/styles.css', array(), '1.0.0', 'all');
 }
 
 function enqueue_scripts() {
+    wp_enqueue_script('jquery');
     wp_enqueue_script('main-script', get_template_directory_uri() . '/dist/js/bundle.js', array('jquery'), '1.0.0', true);
-    wp_localize_script('main-script', 'unik_mah_js', array('ajax_url' => admin_url('admin-ajax.php')));
-    
 }
+
 
 
 function theme_setup() {
@@ -26,15 +33,13 @@ function enqueue_custom_fonts() {
 }
 
 function submit_form_handler() {
-    // Handle form submission here
-    // Example: Return a JSON response
     $response = array('success' => true, 'message' => 'Form submitted successfully');
     wp_send_json($response);
 }
 
 function custom_form_shortcode() {
     ob_start(); ?>
-    <form id="formulaire_principal" action="/submit-form" method="post">
+    <form id="formulaire_principal" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
         <h2 class="formulaire_principal-title">Vous avez un nouveau projet?</h2>
         <p class="formulaire_principal-subtitle">Fournissez-nous plus de détails sur votre projet, nous avons hâte de vous épauler dans sa conception !</p>
             <!-- Input fields -->
@@ -68,33 +73,27 @@ function custom_form_shortcode() {
     <?php
     return ob_get_clean();
 }
-// Hook to handle AJAX requests for the 'submit_form' action
+
 add_action('wp_ajax_submit_form', 'handle_submit_form');
 add_action('wp_ajax_nopriv_submit_form', 'handle_submit_form'); // For non-logged-in users
 
 function handle_submit_form() {
-    // Perform your server-side logic here.
-
-    // Example: Get the form data sent via AJAX.
     $name = sanitize_text_field($_POST['name']);
     $email = sanitize_email($_POST['email']);
 
-    // Example: Perform some action with the form data.
-    // For illustration purposes, we're just echoing back the data.
     $response = array(
         'name' => $name,
         'email' => $email,
         'message' => 'Form submitted successfully!',
-    );
 
-    // Send the JSON response back to the JavaScript.
+    );
     wp_send_json_success($response);
 
-    // Make sure to exit after sending the JSON response.
     wp_die();
 }
 
 
+add_action('init', 'allow_cors');
 add_action('wp_enqueue_scripts', 'enqueue_styles');
 add_action('wp_enqueue_scripts', 'enqueue_scripts');
 add_action('after_setup_theme', 'theme_setup');

@@ -49,6 +49,10 @@
       font-size: 18px;
       font-weight: 600;
       background-color: transparent;
+      text-transform: uppercase;
+      :focus {
+        background-color: transparent; /* Check if this rule exists */
+      }
       &::placeholder {
         color: white;
         text-transform: uppercase;

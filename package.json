@@ -19,5 +19,8 @@
     "webpack-dev-server": "^4.15.1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
 }
