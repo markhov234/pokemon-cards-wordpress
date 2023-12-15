@@ -17,13 +17,9 @@ if ($header_section) {
     $header_email_group = $header_section['header_email'];
 
 
-    // var_dump($header_location_group['icon']);
+    // var_dump(get_template_directory_uri() .'/dist/images/'. $header_location_group['icon'].'.svg');
 }
-
-
-
 ?>
-
 <main class="page_principal">
     <section class="header_hero">
         <div class="header_hero-container">
@@ -33,21 +29,20 @@ if ($header_section) {
             </div>
             <div class="header_hero-contact">
                 <div class="header_hero-contact-info">
-                    <span class="material-symbols-outlined header_hero-contact-info-icon">
-                        <?= $header_location_group['icon'] ?>
-                    </span>
-                    <p>1689 rue du Marais, suite 220, Québec, Qc, G1M0A2</p>
+                    <span class="header_hero-contact-info-icon"><img src="<?php echo get_template_directory_uri() . '/dist/images/' . $header_location_group['icon'] . '.svg' ?>" /></span>
+                    <div class="header_hero-contact-info-container">
+                        <p><?php echo $header_location_group['adresse'] ?></p>
+                        <span class="header_hero-contact-info-link">
+                            <a href="<?php echo $header_location_group['adresse_link']['url'] ?>"><?php echo $header_location_group['adresse_link']['title'] ?><img src="<?php echo get_template_directory_uri() . '/dist/images/arrow.svg' ?>"></a>
+                        </span>
+                    </div>
                 </div>
                 <div class="header_hero-contact-info">
-                    <span class="material-symbols-outlined header_hero-contact-info-icon">
-                    <?= $header_telephone_group['icon'] ?>
-                    </span>
+                    <span class="header_hero-contact-info-icon"><img src="<?php echo get_template_directory_uri() . '/dist/images/' . $header_telephone_group['icon'] . '.svg' ?>"></span>
                     <p>1(418) 261-8207</p>
                 </div>
                 <div class="header_hero-contact-info">
-                    <span class="material-symbols-outlined header_hero-contact-info-icon">
-                    <?= $header_email_group['icon'] ?>
-                    </span>
+                    <span class="header_hero-contact-info-icon"><img src="<?php echo get_template_directory_uri() . '/dist/images/' . $header_email_group['icon'] . '.svg' ?>"></span>
                     <p>Info@unikmedia.ca</p>
                 </div>
             </div>

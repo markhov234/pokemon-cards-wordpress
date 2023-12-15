@@ -14,8 +14,8 @@
 </head>
 <body>
 
-<nav class="menu-principal-nav">
-    <span class="menu-principal-logo">UNIK</span>
+<nav id="menu_principal-nav" class="menu-principal-nav">
+    <span class="menu-principal-logo"><img src="<?php echo get_template_directory_uri() . '/dist/images/logo.svg' ?> ?>" ></span>
 <div class="menu-principal-btn" id="menu-btn">
     <span class="menu-principal-btn-bar"></span>
     <span class="menu-principal-btn-bar"></span>
@@ -24,8 +24,9 @@
     <?php
     wp_nav_menu(
         array(
-            'theme_location' => 'primary_menu', // Specify the menu location
-            'menu_class'     => 'menu-principal-ul',   // Add a custom class to your menu
+            'theme_location' => 'primary_menu', 
+            'menu_class'     => 'menu-principal-ul',  
+            'menu_id'     => 'menu-principal-ul',  
         )
     );
     ?>
