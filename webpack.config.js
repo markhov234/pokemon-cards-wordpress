@@ -20,17 +20,9 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'dist/images', // Specify the output path for images
-          },
-        },
-      ]
-      }
+        test: /\.(jpg|png|svg|gif)$/,
+        type: 'asset/resource',
+  },
     ],
   },
   plugins: [
