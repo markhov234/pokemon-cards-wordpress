@@ -30,7 +30,7 @@ module.exports = {
       filename: '../css/styles.css', // Adjust the path to place it in the "css" directory
     }),
     new BrowserSyncPlugin({
-      proxy: 'http://unik.local/',
+      proxy: 'http://pokemon-cards.local/',
       files: '**/*.php',
       reloadDelay: 0,
     }),

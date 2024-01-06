@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Services
+Template Name: Pokemon Services
 */
 get_header();
 ?>

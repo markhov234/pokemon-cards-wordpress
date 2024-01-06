@@ -17,12 +17,7 @@
 <body>
 
     <nav id="menu_principal-nav" class="menu-principal-nav">
-        <span class="menu-principal-logo"><img src="<?php echo get_template_directory_uri() . '/dist/images/logo.svg' ?> ?>"></span>
-        <div class="menu-principal-btn" id="menu-btn">
-            <span class="menu-principal-btn-bar"></span>
-            <span class="menu-principal-btn-bar"></span>
-            <span class="menu-principal-btn-bar"></span>
-        </div>
+
         <?php
         wp_nav_menu(
             array(
