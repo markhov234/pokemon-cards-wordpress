@@ -1,4 +1,4 @@
 import '../scss/style.scss'; 
-import "./ajaxMenu.js"
+import "./pokemonSetSearch.js"
 import "./formajax.js"
 import './cardRadiant.js'

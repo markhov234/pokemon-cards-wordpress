@@ -1,0 +1,17 @@
+.home {
+  max-width: 1500px;
+  margin: auto;
+  padding: 0 50px;
+  &-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    padding: 0;
+    &-item {
+      &-image {
+        max-width: 65px;
+        max-height: 65px;
+      }
+    }
+  }
+}

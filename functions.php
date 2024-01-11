@@ -15,8 +15,18 @@ function enqueue_styles()
 
 function enqueue_scripts()
 {
-    wp_enqueue_script('jquery');
-    wp_enqueue_script('main-script', get_template_directory_uri() . '/dist/js/bundle.js', array('jquery'), '1.0.0', true);
+    // wp_enqueue_script('jquery');
+    wp_register_script('main-script', get_template_directory_uri() . '/dist/js/bundle.js', array('jquery'), '1.0.0', true); // Localize the script
+    $script_data_array = array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+    );
+
+    wp_localize_script('main-script', 'my_ajax_object', $script_data_array);
+
+    // Enqueue the script
+    wp_enqueue_script('main-script');
+
+    // wp_localize_script('poekmonSetSearch', 'ajaxurl', admin_url('admin-ajax.php'));
 }
 
 
@@ -29,10 +39,6 @@ function theme_setup()
             'footer_menu'  => esc_html__('Footer Menu', 'pokemon_cards'),
         )
     );
-}
-
-function enqueue_custom_fonts()
-{
 }
 
 // Make API call to the pokemon API
@@ -65,12 +71,13 @@ function get_all_set_names()
         foreach ($sets_response['data'] as $set) {
             $sets_data[] = array(
                 'id' => $set['id'],
-                'name' => $set['name']
+                'name' => $set['name'],
+                'imageUrl' => $set['images']['symbol'],
             );
         }
     }
 
-    return $sets_data;
+    return json_encode($sets_data);
 }
 
 
@@ -78,10 +85,21 @@ function get_all_set_names()
 
 
 add_action('init', 'allow_cors');
+// add_action('wp_ajax_get_set_names', 'get_all_set_names');
+// add_action('wp_ajax_nopriv_get_set_names', 'get_all_set_names');
 add_action('wp_enqueue_scripts', 'enqueue_styles');
 add_action('wp_enqueue_scripts', 'enqueue_scripts');
 add_action('after_setup_theme', 'theme_setup');
-add_action('wp_enqueue_scripts', 'enqueue_custom_fonts');
-add_action('wp_ajax_submit_form', 'submit_form_handler');
-add_action('wp_ajax_nopriv_submit_form', 'submit_form_handler');
-add_shortcode('custom_form', 'custom_form_shortcode');
+// add_shortcode('custom_form', 'custom_form_shortcode');
+add_action('wp_ajax_my_trigger_ajax_action', 'to_this_when_ajax_is_triggered');
+add_action('wp_ajax_nopriv_my_trigger_ajax_action', 'to_this_when_ajax_is_triggered');
+
+function to_this_when_ajax_is_triggered()
+{
+    $my_data = $_POST['ajax_data'];
+
+    // Do something with the data
+    wp_send_json($my_data);
+    // Don't forget to stop execution afterward
+    wp_die();
+}
