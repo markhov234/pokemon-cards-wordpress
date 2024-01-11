@@ -73,11 +73,12 @@ function get_all_set_names()
                 'id' => $set['id'],
                 'name' => $set['name'],
                 'imageUrl' => $set['images']['symbol'],
+                'series' => $set['series'],
             );
         }
     }
 
-    return json_encode($sets_data);
+    return $sets_data;
 }
 
 
@@ -91,15 +92,15 @@ add_action('wp_enqueue_scripts', 'enqueue_styles');
 add_action('wp_enqueue_scripts', 'enqueue_scripts');
 add_action('after_setup_theme', 'theme_setup');
 // add_shortcode('custom_form', 'custom_form_shortcode');
-add_action('wp_ajax_my_trigger_ajax_action', 'to_this_when_ajax_is_triggered');
-add_action('wp_ajax_nopriv_my_trigger_ajax_action', 'to_this_when_ajax_is_triggered');
+add_action('wp_ajax_my_trigger_ajax_all_sets_name', 'ajax_get_all_sets_name');
+add_action('wp_ajax_nopriv_my_trigger_ajax_all_sets_name', 'ajax_get_all_sets_name');
 
-function to_this_when_ajax_is_triggered()
+function ajax_get_all_sets_name()
 {
-    $my_data = $_POST['ajax_data'];
+    $sets_data = get_all_set_names();
 
     // Do something with the data
-    wp_send_json($my_data);
+    wp_send_json_success($sets_data);
     // Don't forget to stop execution afterward
     wp_die();
 }

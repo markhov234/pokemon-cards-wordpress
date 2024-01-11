@@ -5,7 +5,7 @@ Template Name: Pokemon Home
 get_header();
 ?>
 
-<?php $allSetsName = get_all_set_names() ?>
+<?php $allSetsName = get_all_set_names(); ?>
 <main>
     <input type="text" id="pokemonSetSearch" placeholder="Search for sets">
     <button id="trigger-ajax">
