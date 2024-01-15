@@ -7,10 +7,12 @@ get_header();
 
 <?php $allSetsName = get_all_set_names(); ?>
 <main>
-    <input type="text" id="pokemonSetSearch" placeholder="Search for sets">
-    <button id="trigger-ajax">
-        Trigger Ajax response
-    </button>
+    <label for="pokemonSetSearch">Search for sets</label>
+    <select name="pokemonSetSearch" id="pokemonSetSearch">
+        <?php foreach ($allSetsName as $setName) : ?>
+            <option value="<?php echo $setName['series'] ?>"><?php echo esc_html($setName['name']) ?></option>
+        <?php endforeach; ?>
+    </select>
     <div id="pokemonSetDropdown" class="pokemon-dropdown"></div>
     <div class="home">
         <?php if (!empty($allSetsName)) : ?>

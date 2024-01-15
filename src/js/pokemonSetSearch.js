@@ -1,27 +1,28 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const setsList = document.querySelector('.home-list'); // Get the sets list container
 
-  const buttonTriggerAjax = document.getElementById('trigger-ajax');
-  buttonTriggerAjax.addEventListener('click', function() {
-    console.log("Button clicked");
-    jQuery.ajax({
-      type: 'post',
-      url: `${window.location.origin}/wp-admin/admin-ajax.php`,
-      data: {
-        action: 'my_trigger_ajax_all_sets_name',
-      },
-      complete: function(response) {
-        let filteredArray = [];
-        response.responseJSON.data.forEach(element => {
-          if (element.series === "Base") {
-            filteredArray.push(element);
-          }
-        });
+  // console.log(my_ajax_object);
+  if (my_ajax_object.is_home) {
+    const setsList = document.querySelector('.home-list');
+    const searchInput = document.getElementById('pokemonSetSearch');
 
-        // Clear the current sets list
+    searchInput.addEventListener('input', function() {
+      fetchSets(searchInput.value);
+    });
+
+    function fetchSets(searchTerm) {
+      jQuery.ajax({
+        type: 'post',
+        url: `${window.location.origin}/wp-admin/admin-ajax.php`,
+        data: {
+          action: 'my_trigger_ajax_all_sets_name',
+          search_term: searchTerm,
+        },
+      })
+      .done(function(response) {
+        let filteredArray = response.data;
+
         setsList.innerHTML = '';
 
-        // Render the filtered list in your HTML
         filteredArray.forEach(set => {
           const listItem = document.createElement('li');
           const link = document.createElement('a');
@@ -42,7 +43,10 @@ document.addEventListener('DOMContentLoaded', function() {
           listItem.appendChild(link);
           setsList.appendChild(listItem);
         });
-      }
-    });
-  });
+      })
+      .fail(function(error) {
+        console.error('Error fetching sets:', error);
+      });
+    }
+  }
 });

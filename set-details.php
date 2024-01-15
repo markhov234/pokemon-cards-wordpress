@@ -1,6 +1,6 @@
 <?php
 /*
-Template Name: Set Details
+Template Name: set-details.php
 */
 
 get_header();
@@ -54,31 +54,22 @@ if (!empty($setId)) {
     // Vient fetch les infos concernant le set :id
     $setSetsInfo = make_pokemon_api_request('sets/' . $setId);
     // Vient fetch les infos concernant les cartes du set -> :id
-    $setCards = make_pokemon_api_request('cards', ['q' => 'set.id:' . $setId]);
+
 
     // vérifie si la variable est vide, par la suite affiche les infos du set avec la fonction displaySetInfo
     if (!empty($setSetsInfo) && !empty($setSetsInfo['data'])) {
         $setSetsInfoData = $setSetsInfo['data'];
         displaySetInfo($setSetsInfoData);
     }
-    // vérifie si la variable est vide, par la suite affiche les infos des cartes du set -> :id 
-    if (!empty($setCards) && !empty($setCards['data'])) {
-        echo '<div class="card">';
-        echo '<h1>Cards from the Set</h1>';
-        echo '<div class="cards-container">';
-        foreach ($setCards['data'] as $card) {
-            displayCardInfo($card);
-        }
-        echo '</div>';
-        echo '</div>';
-    } else {
-        echo '<p>No cards found for this set.</p>';
-    }
 } else {
     echo '<p>No Set ID provided.</p>';
 }
+?>
 
-
-// Ajouté une section boutique dans le bas de la page ou en tant qu'aside recommendant des items de woo commerce
-// Ajouté une fonction qui fait un zoom sur la carte selectionnée : hover / click / active
+<div class="cards-container"></div>
+<button id="load-more-cards">Load More Cards</button>
+<!-- // Ajouté une section boutique dans le bas de la page ou en tant qu'aside recommendant des items de woo commerce
+// Ajouté une fonction qui fait un zoom sur la carte selectionnée : hover / click / active -->
+<?php
 get_footer();
+?>
